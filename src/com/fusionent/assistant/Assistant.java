@@ -23,8 +23,9 @@ public class Assistant {
 		
 		Assistant mainHelper = new Assistant();
 		mainHelper.showUI();
-		mainHelper.startAudio();
-		mainHelper.monitorEmail();
+		//mainHelper.startAudio();
+		mainHelper.startWebcam();
+		//mainHelper.monitorEmail();
 
 	}
 	
@@ -38,6 +39,13 @@ public class Assistant {
 	protected void startAudio() {
 		MicrophoneListener listener = new MicrophoneListener();
 		listener.open();
+	}
+	
+	protected void startWebcam(){
+		WebcamGrabber cam = new WebcamGrabber();
+		Thread t = new Thread(cam);
+		t.start();
+		
 	}
 
 	public void showUI() {
