@@ -41,6 +41,7 @@ public class WebcamGrabber implements Runnable {
                  //Thread.sleep(INTERVAL);
             }
         } catch (Exception e) {
+        	System.out.println(e);
         }
     }
 }

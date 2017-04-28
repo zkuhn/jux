@@ -15,6 +15,8 @@ import javax.swing.*;
 public class Assistant {
 
 	public static String TITLE = "Assistant 0.1";
+	MicrophoneListener listener = new MicrophoneListener();
+	
 	/**
 	 * @param args
 	 */
@@ -26,7 +28,15 @@ public class Assistant {
 		//mainHelper.startAudio();
 		mainHelper.startWebcam();
 		//mainHelper.monitorEmail();
-
+		//mainHelper.showAudio();
+		Transcriber t = new Transcriber();
+		try {
+			t.transcribe();
+			System.out.println("done transcribing");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	protected void monitorEmail() {
@@ -39,6 +49,12 @@ public class Assistant {
 	protected void startAudio() {
 		MicrophoneListener listener = new MicrophoneListener();
 		listener.open();
+	}
+	
+	protected void showAudio() {
+		
+		//listener.displayMixers();
+		listener.showMicLine();
 	}
 	
 	protected void startWebcam(){
@@ -54,6 +70,7 @@ public class Assistant {
 		mainPanel.addWindowListener(new WindowAdapter() {
 			public void windowClosed(WindowEvent e) {
 		        //This will only be seen on standard output.
+				listener.stopRecording();
 		        System.exit(0);
 		    }
 		});
