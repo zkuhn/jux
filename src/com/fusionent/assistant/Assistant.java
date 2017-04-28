@@ -5,7 +5,11 @@ package com.fusionent.assistant;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 /**
@@ -16,6 +20,8 @@ public class Assistant {
 
 	public static String TITLE = "Assistant 0.1";
 	MicrophoneListener listener = new MicrophoneListener();
+	
+	int stopCount = 0;
 	
 	/**
 	 * @param args
@@ -31,12 +37,60 @@ public class Assistant {
 		//mainHelper.showAudio();
 		Transcriber t = new Transcriber();
 		try {
-			t.transcribe();
+			t.transcribe(mainHelper);
 			System.out.println("done transcribing");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void interpret(String interpreted) {
+		if(interpreted.equals("close")) {
+			stopCount++;
+			if ( stopCount > 2) {
+				System.exit(0);
+			}
+		}
+		if(interpreted.equals("zero")) {
+			// play Audio: yes self, I am listening
+			this.playVoice("zeroVoice.wav");
+		}
+		
+		if(interpreted.equals("hello")) {
+			// play Audio: yes self, I am listening
+			this.playVoice("zeroHello.wav");
+		}
+		if(interpreted.equals("sad")) {
+			// play Audio: yes self, I am listening
+			this.playVoice("zeroSad.wav");
+		}
+		if(interpreted.equals("reminder")) {
+			// play Audio: yes self, I am listening
+			this.playVoice("zeroReminder.wav");
+		}
+		
+	}
+	
+	public void playVoice(String file) {
+		
+		
+		 
+		 try {
+			 Clip clip = AudioSystem.getClip();
+			 System.out.println("clip is" + clip);
+			 System.out.println(Assistant.class.getResourceAsStream(file));
+	        AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+	        		new File(file)
+            );
+	        System.out.println("input stream is" + inputStream);
+	        clip.open(inputStream);
+	        clip.start(); 
+	      } catch (Exception e) {
+	    	  System.out.println("Exception thrown playing voice");
+	    	  System.out.println(e);
+	        System.err.println(e.getMessage());
+	      }
 	}
 	
 	protected void monitorEmail() {
