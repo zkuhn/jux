@@ -107,13 +107,14 @@ public class SpeechAdaption implements Runnable{
 		
 		//int numBytesRead;
 		//byte[] data = new byte[l.getBufferSize() / 5];
-		(new Thread(new SpeechAdaption())).start();
+		(new Thread(this)).start();
 
 		
 	}
 	
 	public void stopRecording() {
 		tdl.stop();
+		tdl.close();
 	}
 
 	@Override
@@ -121,6 +122,9 @@ public class SpeechAdaption implements Runnable{
 		try {
 			MicrophoneListener mi = new MicrophoneListener();
 			tdl = mi.getMicrophoneLine();
+			if(tdl == null) {
+				System.out.println("Couldn't find your mic. Maybe it's not plugged in?");
+			}
 			tdl.open();
 			//ByteArrayOutputStream out  = new ByteArrayOutputStream();
 			File saveFile = new File("audioTest.wav");
