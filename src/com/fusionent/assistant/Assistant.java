@@ -30,6 +30,16 @@ public class Assistant {
 		// TODO Auto-generated method stub
 		
 		Assistant mainHelper = new Assistant();
+		SpeechAdaption sa = new SpeechAdaption();
+		sa.doIt();
+		
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		mainHelper.showUI();
 		//mainHelper.startAudio();
 		mainHelper.startWebcam();
