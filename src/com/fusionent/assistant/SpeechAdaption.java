@@ -42,16 +42,16 @@ public class SpeechAdaption implements Runnable{
 			//Read File Line By Line
 			while ((strLine = br.readLine()) != null)   {
 			  // Print the content on the console
-			  System.out.println(PLEASE_READ);
-			  System.out.println (strLine);
-			  
-			  boolean recorded = this.recordMessage();
-			  if(!recorded) {
-				  System.out.println ("Quitting recording now.");
-				  break;
-			  }
-			  
-			  System.out.println(PLEASE_READ);
+				System.out.println(PLEASE_READ);
+				System.out.println (strLine);
+				  
+				boolean recorded = this.recordMessage();
+				if(!recorded) {
+				System.out.println ("Quitting recording now.");
+				break;
+				}
+				//may need to do data conversion here if we didn't record in compatible format.
+				System.out.println(PLEASE_READ);
 			  
 			}
 
@@ -79,7 +79,10 @@ public class SpeechAdaption implements Runnable{
 			if (b == 'q') {
 				return false;
 			}
+			
+			//let this run in a second thread while we block for stop input on this thread
 			this.startRecording();
+			
 			//careful, windowns may pick up \n\r instead of just \n
 			b = System.in.read();
 
@@ -89,6 +92,10 @@ public class SpeechAdaption implements Runnable{
 			b = System.in.read();
 			System.out.println("got second input:" + b);
 			this.stopRecording();
+			
+			
+			
+			
 			System.out.println("done recording");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
