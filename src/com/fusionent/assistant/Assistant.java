@@ -31,14 +31,14 @@ public class Assistant {
 		
 		Assistant mainHelper = new Assistant();
 		SpeechAdaption sa = new SpeechAdaption();
-		sa.doIt();
+		//sa.doIt();
 		
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(3000);
+//		} catch (InterruptedException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
 		mainHelper.showUI();
 		//mainHelper.startAudio();
@@ -138,7 +138,11 @@ public class Assistant {
 		        System.exit(0);
 		    }
 		});
-		mainPanel.setSize(200, 150);
+		
+		//TODO where should this really go - fix
+		mainPanel.add(new AdaptionControlPanel( new AdaptionController() ) );
+		//mainPanel.setSize(200, 150);
+		mainPanel.pack();
 		mainPanel.setVisible(true);
 	}
 
