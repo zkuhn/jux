@@ -25,7 +25,9 @@ public class SpeechAdaption implements Runnable{
 	 */
 	public void doIt() {
 		// first open some file with a list of lines of text that the speaker should read
-		// Open the file
+		// Open the file  
+		
+		
 		try {
 			FileInputStream fstream = new FileInputStream("data\\test.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
