@@ -1,8 +1,10 @@
-package com.fusionent.assistant;
+package com.fusionent.assistant.ui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import com.fusionent.assistant.AdaptionController;
 
 public class AdaptionControlPanel extends Panel implements ActionListener{
 
@@ -24,6 +26,7 @@ public class AdaptionControlPanel extends Panel implements ActionListener{
 		recordButton  = new Button("Start");
 		actionMessage = new Label("Press Start to begin recording");
 		textMessage   = new Label("Text not loaded yet");
+		
 		this.controller = controller;
 		recordButton.addActionListener(this);
 		this.add(recordButton);
@@ -39,13 +42,25 @@ public class AdaptionControlPanel extends Panel implements ActionListener{
 		this.recording = !this.recording;
 		if(recording) {
 			controller.processStartAction();
-			actionMessage.setText("Recording text");
-			recordButton.setLabel("Stop");
 		} else {
 			controller.processStopAction();
-			actionMessage.setText("Ready for next message");
-			recordButton.setLabel("Start");
+			
 		}
 	}
+	
+	public void updateToRecording() {
+	    actionMessage.setText("Recording text");
+        recordButton.setLabel("Stop");
+	}
+	
+	public void updateToWaiting() {
+	    actionMessage.setText("Ready for next message");
+        recordButton.setLabel("Start");
+	}
+
+    public void setNextMessage(String nextMessage) {
+        // TODO Auto-generated method stub
+        textMessage.setText(nextMessage);
+    }
 
 }

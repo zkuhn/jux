@@ -17,7 +17,7 @@ public class WebcamGrabber implements Runnable {
     IplImage image;
     CanvasFrame canvas = new CanvasFrame("Web Cam");
     public WebcamGrabber() {
-        canvas.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        canvas.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
     @Override
     public void run() {

@@ -19,7 +19,14 @@ public class SpeechAdaption implements Runnable{
 	public static final String PRESS_ENTER = "Press q to quit recording now. Press any other key to begin recording, then any key "
 			                                 + "again when you are done, to stop recording."; 
 	
+    FileInputStream fstream ;
+    BufferedReader br ;
+    
 	public TargetDataLine tdl;
+	public SpeechAdaption() throws Exception {
+        fstream = new FileInputStream("data\\test.txt");
+        br = new BufferedReader(new InputStreamReader(fstream));
+	}
 	/**
 	 * 
 	 */
@@ -29,8 +36,7 @@ public class SpeechAdaption implements Runnable{
 		
 		
 		try {
-			FileInputStream fstream = new FileInputStream("data\\test.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+
 			String strLine;
 			
 //			 loop through each line
@@ -42,7 +48,7 @@ public class SpeechAdaption implements Runnable{
 //		     ask if they are done or would like to continue
 
 			//Read File Line By Line
-			while ((strLine = br.readLine()) != null)   {
+			while ( (strLine = this.getNextMessage()) != null)   {
 			  // Print the content on the console
 				System.out.println(PLEASE_READ);
 				System.out.println (strLine);
@@ -59,9 +65,6 @@ public class SpeechAdaption implements Runnable{
 
 			//Close the input stream
 			br.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,6 +75,10 @@ public class SpeechAdaption implements Runnable{
 		// when they are done by choice or end of file, send the audio to the CMU adapter process to create the adaption
 		
 		
+	}
+	
+	public String getNextMessage() throws IOException {
+	    return br.readLine();
 	}
 	
 	public boolean recordMessage () {
@@ -113,9 +120,6 @@ public class SpeechAdaption implements Runnable{
 	public void startRecording() throws IOException, LineUnavailableException {
 		//record the message in a new thread
 		
-		
-		//int numBytesRead;
-		//byte[] data = new byte[l.getBufferSize() / 5];
 		(new Thread(this)).start();
 
 		

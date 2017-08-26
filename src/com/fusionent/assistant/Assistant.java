@@ -12,6 +12,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 
+import com.fusionent.assistant.ui.AdaptionControlPanel;
+import com.fusionent.assistant.ui.MainMenuController;
+
 /**
  * @author zkuhn
  *
@@ -22,6 +25,7 @@ public class Assistant {
 	MicrophoneListener listener = new MicrophoneListener();
 	
 	int stopCount = 0;
+	protected JFrame mainPanel;
 	
 	/**
 	 * @param args
@@ -30,7 +34,7 @@ public class Assistant {
 		// TODO Auto-generated method stub
 		
 		Assistant mainHelper = new Assistant();
-		SpeechAdaption sa = new SpeechAdaption();
+		//SpeechAdaption sa = new SpeechAdaption();
 		//sa.doIt();
 		
 //		try {
@@ -42,12 +46,12 @@ public class Assistant {
 		
 		mainHelper.showUI();
 		//mainHelper.startAudio();
-		mainHelper.startWebcam();
+		
 		//mainHelper.monitorEmail();
 		//mainHelper.showAudio();
 		Transcriber t = new Transcriber();
 		try {
-			t.transcribe(mainHelper);
+			//t.transcribe(mainHelper);
 			System.out.println("done transcribing");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -121,7 +125,7 @@ public class Assistant {
 		listener.showMicLine();
 	}
 	
-	protected void startWebcam(){
+	public void startWebcam(){
 		WebcamGrabber cam = new WebcamGrabber();
 		Thread t = new Thread(cam);
 		t.start();
@@ -129,21 +133,47 @@ public class Assistant {
 	}
 
 	public void showUI() {
-		JFrame mainPanel = new JFrame();
+	    
+		mainPanel = new JFrame();
 		mainPanel.setTitle(Assistant.TITLE);
 		mainPanel.addWindowListener(new WindowAdapter() {
 			public void windowClosed(WindowEvent e) {
 		        //This will only be seen on standard output.
-				listener.stopRecording();
-		        System.exit(0);
+				shutdown();
 		    }
 		});
 		
 		//TODO where should this really go - fix
-		mainPanel.add(new AdaptionControlPanel( new AdaptionController() ) );
+		AdaptionController controller;
+        try {
+            controller = this.buildAdaptionController();
+            mainPanel.add( controller.getControlPanel() );
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+		
 		//mainPanel.setSize(200, 150);
+        MainMenuController mainMenuController = new MainMenuController(this);
+        mainPanel.setJMenuBar(mainMenuController.getMenuBar());
+        
 		mainPanel.pack();
 		mainPanel.setVisible(true);
 	}
+	
+	public AdaptionController buildAdaptionController() throws Exception{
+	    
+	    AdaptionController controller = new AdaptionController(new SpeechAdaption()); 
+	    AdaptionControlPanel acp = new AdaptionControlPanel( controller );
+	    controller.setControlPanel(acp);
+	    return controller;
+	    
+	}
+
+    public void shutdown() {
+        // TODO Auto-generated method stub
+        listener.stopRecording();
+        System.exit(0);
+    }
 
 }
