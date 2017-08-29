@@ -45,19 +45,19 @@ public class Assistant {
 //		}
 		
 		mainHelper.showUI();
-		//mainHelper.startAudio();
-		
-		//mainHelper.monitorEmail();
-		//mainHelper.showAudio();
-		Transcriber t = new Transcriber();
+
+	}
+
+    public void transcribe() {
+        Transcriber t = new Transcriber();
 		try {
-			//t.transcribe(mainHelper);
+			t.transcribe(this);
 			System.out.println("done transcribing");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+    }
 	
 	public void interpret(String interpreted) {
 		if(interpreted.equals("close")) {
@@ -87,9 +87,7 @@ public class Assistant {
 	}
 	
 	public void playVoice(String file) {
-		
-		
-		 
+
 		 try {
 			 Clip clip = AudioSystem.getClip();
 			 System.out.println("clip is" + clip);
@@ -107,7 +105,7 @@ public class Assistant {
 	      }
 	}
 	
-	protected void monitorEmail() {
+	public void monitorEmail() {
 		// TODO Auto-generated method stub
 		EmailReview reviewer = new EmailReview();
 		reviewer.monitorImapMailbox();
@@ -115,12 +113,14 @@ public class Assistant {
 	}
 	
 	protected void startAudio() {
-		MicrophoneListener listener = new MicrophoneListener();
+	    
+		listener = new MicrophoneListener();
 		listener.open();
 	}
 	
-	protected void showAudio() {
-		
+	public void showAudio() {
+	    this.startAudio();
+		System.out.println("is this working?");
 		//listener.displayMixers();
 		listener.showMicLine();
 	}

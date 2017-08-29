@@ -30,27 +30,47 @@ public class MainMenuController {
         mainMenu = new JMenu("Controls");
         mainMenu.setMnemonic(KeyEvent.VK_C);
         
-        JMenuItem startWebcam = new JMenuItem("Start Webcam");
-        startWebcam.addActionListener( new ActionListener(){    
+        this.addMenuItem("Start Webcam", new ActionListener(){    
             public void actionPerformed(ActionEvent ae) {
-                //This will only be seen on standard output.
                 assistant.startWebcam();
             }
         });
-        
-        mainMenu.add(startWebcam);
-        
-        JMenuItem exitOption = new JMenuItem("Exit");
-        exitOption.addActionListener( new ActionListener(){    
+
+        this.addMenuItem("monitorEmail", new ActionListener(){    
             public void actionPerformed(ActionEvent ae) {
-                //This will only be seen on standard output.
+                assistant.monitorEmail();
+            }
+        });
+        
+        this.addMenuItem("showAudio", new ActionListener(){    
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("audio clicked");
+                assistant.showAudio();
+            }
+        });
+        
+        this.addMenuItem("transcribe", new ActionListener(){    
+            public void actionPerformed(ActionEvent ae) {
+                assistant.transcribe();
+            }
+        });
+        
+        this.addMenuItem("Exit", new ActionListener(){    
+            public void actionPerformed(ActionEvent ae) {
                 assistant.shutdown();
             }
         });
-        mainMenu.add(exitOption);
+        
+
         
         menuBar.add(mainMenu);
         
+    }
+    
+    protected void addMenuItem(String menuItemName, ActionListener action) {
+        JMenuItem newMenuItem = new JMenuItem(menuItemName);
+        newMenuItem.addActionListener(action);
+        mainMenu.add(newMenuItem);
     }
     
     public JMenuBar getMenuBar(){
