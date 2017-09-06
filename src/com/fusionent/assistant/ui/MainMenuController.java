@@ -55,6 +55,12 @@ public class MainMenuController {
             }
         });
         
+        this.addMenuItem("animation", new ActionListener(){    
+            public void actionPerformed(ActionEvent ae) {
+                assistant.animate();
+            }
+        });
+        
         this.addMenuItem("Exit", new ActionListener(){    
             public void actionPerformed(ActionEvent ae) {
                 assistant.shutdown();

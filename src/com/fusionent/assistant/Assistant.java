@@ -13,6 +13,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 import com.fusionent.assistant.ui.AdaptionControlPanel;
+import com.fusionent.assistant.ui.AnimationCanvas;
 import com.fusionent.assistant.ui.MainMenuController;
 
 /**
@@ -135,6 +136,8 @@ public class Assistant {
 	public void showUI() {
 	    
 		mainPanel = new JFrame();
+		mainPanel.setLocation(300, 300);
+		mainPanel.setSize(300, 300);
 		mainPanel.setTitle(Assistant.TITLE);
 		mainPanel.addWindowListener(new WindowAdapter() {
 			public void windowClosed(WindowEvent e) {
@@ -147,7 +150,7 @@ public class Assistant {
 		AdaptionController controller;
         try {
             controller = this.buildAdaptionController();
-            mainPanel.add( controller.getControlPanel() );
+            //mainPanel.getContentPane().add( controller.getControlPanel() );
         } catch (Exception e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -157,7 +160,7 @@ public class Assistant {
         MainMenuController mainMenuController = new MainMenuController(this);
         mainPanel.setJMenuBar(mainMenuController.getMenuBar());
         
-		mainPanel.pack();
+		//mainPanel.pack();
 		mainPanel.setVisible(true);
 	}
 	
@@ -174,6 +177,13 @@ public class Assistant {
         // TODO Auto-generated method stub
         listener.stopRecording();
         System.exit(0);
+    }
+
+    public void animate() {
+        // TODO Auto-generated method stub
+        //mainPanel.getContentPane().add(new AnimationCanvas());
+        mainPanel.add(new AnimationCanvas());
+        
     }
 
 }
