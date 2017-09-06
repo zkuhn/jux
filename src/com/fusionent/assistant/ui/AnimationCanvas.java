@@ -3,11 +3,14 @@ package com.fusionent.assistant.ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
+
+import com.fusionent.assistant.game.Wall;
 
 
 public class AnimationCanvas extends JPanel implements MouseListener{
@@ -19,6 +22,8 @@ public class AnimationCanvas extends JPanel implements MouseListener{
     
     BouncingBall b;
     AnimationTimer animLoop;
+    
+    int pressedX, pressedY;
 
     public AnimationCanvas() {
         super();
@@ -58,10 +63,17 @@ public class AnimationCanvas extends JPanel implements MouseListener{
         System.out.println("Adding Ball at" + me.getX() + " , " +  me.getY());
     }
     public void mouseReleased(MouseEvent e) {
+        //detect drag events
+        if(e.getX() != pressedX || e.getY() != pressedY) {
+            this.addWall(new Point(pressedX, pressedY), new Point (e.getX(), e.getY()));
+        }
+        
         System.out.println(":MOUSE_RELEASED_EVENT:");
     }
     
     public void mousePressed(MouseEvent e) {
+        this.pressedX = e.getX();
+        this.pressedY = e.getY();
         System.out.println("----------------------------------\n:MOUSE_PRESSED_EVENT:");
     }
     
@@ -71,6 +83,11 @@ public class AnimationCanvas extends JPanel implements MouseListener{
     
     public void mouseEntered(MouseEvent e) {
         System.out.println(":MOUSE_ENTER_EVENT:");
+    }
+    
+    public void addWall(Point start, Point end){
+        Wall w = new Wall(start, end);
+        animLoop.addAnimatable(w);
     }
 
 }
