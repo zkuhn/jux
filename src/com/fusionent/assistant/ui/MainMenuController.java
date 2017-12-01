@@ -54,6 +54,12 @@ public class MainMenuController {
                 assistant.transcribe();
             }
         });
+
+        this.addMenuItem("question", new ActionListener(){    
+            public void actionPerformed(ActionEvent ae) {
+                assistant.promptQuestion();
+            }
+        });
         
         this.addMenuItem("animation", new ActionListener(){    
             public void actionPerformed(ActionEvent ae) {

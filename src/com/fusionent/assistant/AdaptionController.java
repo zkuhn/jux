@@ -3,6 +3,7 @@ package com.fusionent.assistant;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.sound.sampled.LineUnavailableException;
 
@@ -13,6 +14,7 @@ public class AdaptionController implements ActionListener{
     protected SpeechAdaption sa;
     protected AdaptionControlPanel acp;
     protected int adaptionLine = 1;
+    protected int fileIncrement = 0;
     
     public AdaptionController(SpeechAdaption sa){
         this.sa = sa;
@@ -21,7 +23,7 @@ public class AdaptionController implements ActionListener{
 	public void processStartAction(){
 	    acp.updateToRecording();
 		try {
-            sa.startRecording();
+            sa.startRecording("audioTest" + fileIncrement + ".wav");
         } catch (IOException | LineUnavailableException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -31,6 +33,7 @@ public class AdaptionController implements ActionListener{
 	public void processStopAction(){
 	    acp.updateToWaiting();
 		sa.stopRecording();
+		fileIncrement++;
 		
 		try {
             acp.setNextMessage(sa.getNextMessage());
@@ -54,6 +57,15 @@ public class AdaptionController implements ActionListener{
         // TODO Auto-generated method stub
         return this.acp;
     }
+
+    
+	public Vector<String> getSentences() {
+		
+		String path = "C:/lib/sphinx_adaption_data/"; 
+		String fileName = "arctic20.transcription";
+		SentenceLoader sentenceLoader = new SentenceLoader(path + fileName);
+		return sentenceLoader.getSentences(); 
+	}
 	
 	
 }

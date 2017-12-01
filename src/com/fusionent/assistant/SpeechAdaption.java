@@ -22,6 +22,8 @@ public class SpeechAdaption implements Runnable{
     FileInputStream fstream ;
     BufferedReader br ;
     
+    File saveFile;
+    
 	public TargetDataLine tdl;
 	public SpeechAdaption() throws Exception {
         fstream = new FileInputStream("data\\test.txt");
@@ -90,9 +92,9 @@ public class SpeechAdaption implements Runnable{
 			}
 			
 			//let this run in a second thread while we block for stop input on this thread
-			this.startRecording();
+			this.startRecording(""); //record with the default filename
 			
-			//careful, windowns may pick up \n\r instead of just \n
+			//careful, windows may pick up \n\r instead of just \n
 			b = System.in.read();
 
 			  
@@ -117,8 +119,13 @@ public class SpeechAdaption implements Runnable{
 		return true;
 	}
 	
-	public void startRecording() throws IOException, LineUnavailableException {
+	public void startRecording(String filename) throws IOException, LineUnavailableException {
 		//record the message in a new thread
+		if(filename == "") {
+			saveFile = new File("audioTest.wav");
+		} else {
+			saveFile = new File(filename);
+		}
 		
 		(new Thread(this)).start();
 
@@ -140,7 +147,7 @@ public class SpeechAdaption implements Runnable{
 			}
 			tdl.open();
 			//ByteArrayOutputStream out  = new ByteArrayOutputStream();
-			File saveFile = new File("audioTest.wav");
+			
 // Begin audio capture.
 			tdl.start();
 			
