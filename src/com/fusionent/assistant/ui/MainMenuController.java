@@ -67,6 +67,12 @@ public class MainMenuController {
             }
         });
         
+        this.addMenuItem("Appointment", new ActionListener(){    
+            public void actionPerformed(ActionEvent ae) {
+                assistant.showAppointmentTracker();
+            }
+        });
+        
         this.addMenuItem("Exit", new ActionListener(){    
             public void actionPerformed(ActionEvent ae) {
                 assistant.shutdown();

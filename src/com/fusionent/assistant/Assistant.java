@@ -14,6 +14,7 @@ import javax.swing.*;
 
 import com.fusionent.assistant.ui.AdaptionControlPanel;
 import com.fusionent.assistant.ui.AnimationCanvas;
+import com.fusionent.assistant.ui.AppointmentTracker;
 import com.fusionent.assistant.ui.MainMenuController;
 
 /**
@@ -175,7 +176,7 @@ public class Assistant {
 	}
 	
 	/**
-	 * THis actually builds the UI and attaches it to the controller so the tow are cross linked.
+	 * THis actually builds the UI and attaches it to the controller so the two are cross linked.
 	 * 
 	 * @return
 	 * @throws Exception
@@ -201,5 +202,12 @@ public class Assistant {
         mainPanel.add(new AnimationCanvas());
         
     }
+
+	public void showAppointmentTracker() {
+		// TODO Auto-generated method stub
+		AppointmentTracker at = new AppointmentTracker();
+		mainPanel.add(at);
+		
+	}
 
 }
