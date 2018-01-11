@@ -20,6 +20,7 @@ public class AppointmentTracker extends Panel{
 		this.add(appointmentTable);
 		this.setPreferredSize(new Dimension(200,200));
 		this.setVisible(true);
+		this.paint(this.getGraphics());
 	}
 	
 	protected JTable setupTable(){
