@@ -3,13 +3,19 @@ package com.fusionent.assistant.ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import com.fusionent.assistant.game.ImageLoader;
+import com.fusionent.assistant.game.MapMaker;
+import com.fusionent.assistant.game.MovingSprite;
+import com.fusionent.assistant.game.Sprite;
 import com.fusionent.assistant.game.Wall;
 
 
@@ -23,6 +29,8 @@ public class AnimationCanvas extends JPanel implements MouseListener{
     BouncingBall b;
     AnimationTimer animLoop;
     
+    Vector<Wall> walls = new Vector<Wall>();
+    
     int pressedX, pressedY;
 
     public AnimationCanvas() {
@@ -34,21 +42,35 @@ public class AnimationCanvas extends JPanel implements MouseListener{
         animLoop = new AnimationTimer(this);
         animLoop.start();
         this.addBouncingBall(55, 50);
+        this.loadSprite1();
         
         this.addMouseListener(this);
+        this.walls = MapMaker.randomWalls(); 
         
         
     }
 
     public void paint(Graphics g) {
         //g.drawString("Animate mother ", 20, 40);
-        g.setColor(getBackground());
+        //g.setColor(getBackground());
+        g.setColor(Color.WHITE);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         g.setColor(Color.BLACK);
         
         for(Animatable animation : animLoop.getAnimations()) {
             animation.draw(g);
         }
+        for(Wall wall : walls){
+            wall.draw(g);
+        }
+    }
+    
+    public void loadSprite1(){
+        ImageLoader il = new ImageLoader();
+        Vector<Image> images =  il.loadImages("c:\\users\\zakuhn\\workspace\\jux\\data\\images\\animation\\sprite1");
+        Sprite sprite1 = new MovingSprite(images);
+        
+        animLoop.addAnimatable(sprite1);
     }
     
     public void addBouncingBall(int x, int y) {
@@ -59,8 +81,12 @@ public class AnimationCanvas extends JPanel implements MouseListener{
     
     public void mouseClicked (MouseEvent me) {
         
-        addBouncingBall(me.getX(), me.getY());
-        System.out.println("Adding Ball at" + me.getX() + " , " +  me.getY());
+        System.out.println(":MOUSE_CLICKED_EVENT: button - " + me.getButton());
+        
+        if(me.getButton() == MouseEvent.BUTTON2) {
+            addBouncingBall(me.getX(), me.getY());
+            System.out.println("Adding Ball at" + me.getX() + " , " +  me.getY());
+        }
     }
     public void mouseReleased(MouseEvent e) {
         //detect drag events
@@ -87,7 +113,12 @@ public class AnimationCanvas extends JPanel implements MouseListener{
     
     public void addWall(Point start, Point end){
         Wall w = new Wall(start, end);
-        animLoop.addAnimatable(w);
+        //animLoop.addAnimatable(w); walls don't "animate" ?
+        walls.add(w);
     }
 
+    
+    public Vector<Wall> getWalls() {
+        return this.walls;
+    }
 }

@@ -29,7 +29,7 @@ public class AnimationTimer extends Thread{
         
         while(true) {
             try {
-                Thread.sleep(50);
+                Thread.sleep(25);
                 //System.out.println("tick");
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block

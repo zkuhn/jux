@@ -61,6 +61,12 @@ public class MainMenuController {
             }
         });
         
+        this.addMenuItem("Test Page Fetch", new ActionListener(){    
+            public void actionPerformed(ActionEvent ae) {
+                assistant.testPageFetch();
+            }
+        });
+        
         this.addMenuItem("Exit", new ActionListener(){    
             public void actionPerformed(ActionEvent ae) {
                 assistant.shutdown();

@@ -6,6 +6,8 @@ package com.fusionent.assistant;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -15,6 +17,8 @@ import javax.swing.*;
 import com.fusionent.assistant.ui.AdaptionControlPanel;
 import com.fusionent.assistant.ui.AnimationCanvas;
 import com.fusionent.assistant.ui.MainMenuController;
+import com.fusionent.assistant.web.Crawler;
+import com.fusionent.assistant.web.Fetcher;
 
 /**
  * @author zkuhn
@@ -183,6 +187,25 @@ public class Assistant {
         // TODO Auto-generated method stub
         //mainPanel.getContentPane().add(new AnimationCanvas());
         mainPanel.add(new AnimationCanvas());
+        
+    }
+
+    public void testPageFetch() {
+        // TODO Auto-generated method stub
+        Fetcher f = new Fetcher();
+        Crawler c = new Crawler();
+        try {
+            System.out.println("calling fetcher");
+            URL pageLoc = new URL("https://sandiego.craigslist.org");
+            c.crawlUrl(pageLoc);
+            
+            //String page = f.getWebpageRaw(pageLoc);
+            //System.out.println(page);
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println("finished calling fetcher");
         
     }
 

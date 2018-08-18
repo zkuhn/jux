@@ -15,7 +15,6 @@ public class EmailReview {
 	public void monitorImapMailbox() {
 		
 		String host = "owamail.am.sony.com";
-//		String user = "zachary.kuhn@sony.com";
 		String user = "zkuhn";
 		String pass = "";
 		String mbox = "Inbox";
