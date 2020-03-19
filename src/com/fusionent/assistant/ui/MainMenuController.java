@@ -54,6 +54,12 @@ public class MainMenuController {
                 assistant.transcribe();
             }
         });
+
+        this.addMenuItem("question", new ActionListener(){    
+            public void actionPerformed(ActionEvent ae) {
+                assistant.promptQuestion();
+            }
+        });
         
         this.addMenuItem("animation", new ActionListener(){    
             public void actionPerformed(ActionEvent ae) {
@@ -66,15 +72,19 @@ public class MainMenuController {
                 assistant.testPageFetch();
             }
         });
+
+        this.addMenuItem("Appointment", new ActionListener(){    
+            public void actionPerformed(ActionEvent ae) {
+                assistant.showAppointmentTracker();
+            }
+        });
         
         this.addMenuItem("Exit", new ActionListener(){    
             public void actionPerformed(ActionEvent ae) {
                 assistant.shutdown();
             }
         });
-        
 
-        
         menuBar.add(mainMenu);
         
     }

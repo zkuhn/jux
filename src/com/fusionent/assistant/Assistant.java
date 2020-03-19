@@ -16,6 +16,7 @@ import javax.swing.*;
 
 import com.fusionent.assistant.ui.AdaptionControlPanel;
 import com.fusionent.assistant.ui.AnimationCanvas;
+import com.fusionent.assistant.ui.AppointmentTracker;
 import com.fusionent.assistant.ui.MainMenuController;
 import com.fusionent.assistant.web.Crawler;
 import com.fusionent.assistant.web.Fetcher;
@@ -136,6 +137,16 @@ public class Assistant {
 		t.start();
 		
 	}
+	
+	public void promptQuestion(){
+		Questioner q = new Questioner();
+		q.askQuestion(mainPanel);
+		
+		//HTTPRestRequest req = new HTTPRestRequest();
+		//req.send();
+		SphinxAdaption sa = new SphinxAdaption();
+		sa.runAdaption();
+	}
 
 	public void showUI() {
 	    
@@ -168,6 +179,12 @@ public class Assistant {
 		mainPanel.setVisible(true);
 	}
 	
+	/**
+	 * THis actually builds the UI and attaches it to the controller so the two are cross linked.
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public AdaptionController buildAdaptionController() throws Exception{
 	    
 	    AdaptionController controller = new AdaptionController(new SpeechAdaption()); 
@@ -190,6 +207,7 @@ public class Assistant {
         
     }
 
+
     public void testPageFetch() {
         // TODO Auto-generated method stub
         Fetcher f = new Fetcher();
@@ -209,4 +227,10 @@ public class Assistant {
         
     }
 
+	public void showAppointmentTracker() {
+		// TODO Auto-generated method stub
+		AppointmentTracker at = new AppointmentTracker();
+		mainPanel.add(at);
+		
+	}
 }
