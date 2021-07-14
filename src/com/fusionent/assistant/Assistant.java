@@ -32,6 +32,7 @@ public class Assistant {
 	
 	int stopCount = 0;
 	protected JFrame mainPanel;
+	protected AnimationCanvas animationCanvas;
 	
 	/**
 	 * @param args
@@ -196,17 +197,23 @@ public class Assistant {
 
     public void shutdown() {
         // TODO Auto-generated method stub
-        listener.stopRecording();
+        this.stopListener();
         System.exit(0);
+    }
+    
+    public void stopListener() {
+        if (listener != null) {
+            listener.stopRecording();
+        }
     }
 
     public void animate() {
         // TODO Auto-generated method stub
         //mainPanel.getContentPane().add(new AnimationCanvas());
-        mainPanel.add(new AnimationCanvas());
+        animationCanvas = new AnimationCanvas();
+        mainPanel.add(animationCanvas);
         
     }
-
 
     public void testPageFetch() {
         // TODO Auto-generated method stub
@@ -226,11 +233,12 @@ public class Assistant {
         System.out.println("finished calling fetcher");
         
     }
-
+    
 	public void showAppointmentTracker() {
 		// TODO Auto-generated method stub
 		AppointmentTracker at = new AppointmentTracker();
 		mainPanel.add(at);
 		
 	}
+
 }

@@ -88,7 +88,9 @@ public class MicrophoneListener {
 	}
 	
 	public void stopRecording(){
-		l.stop();
+	    if(l != null){
+	        l.stop();
+	    }
 	}
 	
 	public void showMicLine() {
