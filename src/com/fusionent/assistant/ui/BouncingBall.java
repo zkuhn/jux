@@ -84,7 +84,7 @@ public class BouncingBall implements Animatable {
         return new Point(Math.round(x) + radius, Math.round(y) +radius);
     }
     
-    public getSlope(Point p1, Point p2){
+    public void getSlope(Point p1, Point p2){
         
     }
     
