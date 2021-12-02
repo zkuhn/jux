@@ -78,7 +78,11 @@ public class MainMenuController {
                 assistant.showAppointmentTracker();
             }
         });
-        
+        this.addMenuItem("Face Fixer", new ActionListener(){    
+            public void actionPerformed(ActionEvent ae) {
+                assistant.faceFixer();
+            }
+        });
         this.addMenuItem("Exit", new ActionListener(){    
             public void actionPerformed(ActionEvent ae) {
                 assistant.shutdown();

@@ -34,6 +34,10 @@ public class Assistant {
 	protected JFrame mainPanel;
 	protected AnimationCanvas animationCanvas;
 	
+	public Assistant() {
+	    
+	}
+	
 	/**
 	 * @param args
 	 */
@@ -139,6 +143,12 @@ public class Assistant {
 		
 	}
 	
+	public void faceFixer(){
+	    FaceFinder f = new FaceFinder();
+	    f.fetchFile();
+	    
+	}
+	
 	public void promptQuestion(){
 		Questioner q = new Questioner();
 		q.askQuestion(mainPanel);
@@ -155,9 +165,11 @@ public class Assistant {
 		mainPanel.setLocation(300, 300);
 		mainPanel.setSize(300, 300);
 		mainPanel.setTitle(Assistant.TITLE);
+		System.out.println("Adding window listener");
 		mainPanel.addWindowListener(new WindowAdapter() {
-			public void windowClosed(WindowEvent e) {
+			public void windowClosing(WindowEvent e) {
 		        //This will only be seen on standard output.
+			    System.out.println("window closed event seen");
 				shutdown();
 		    }
 		});
@@ -197,6 +209,7 @@ public class Assistant {
 
     public void shutdown() {
         // TODO Auto-generated method stub
+        System.out.println("shutting down");
         this.stopListener();
         System.exit(0);
     }
