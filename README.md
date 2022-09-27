@@ -11,4 +11,11 @@ you can then run this with
 
 java -cp target/Assistant....jar  com.fusionent.assistant.Assistant
 
+----
+Planning
+
+-- A plan to grow:
+  -- "That framework of checklist, process, maybe a committee, and then program, that's great." - Abi Noda
+  -- https://getdx.com/podcast/engineering-operations-ryan-atkins
+
 
